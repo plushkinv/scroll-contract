@@ -6,8 +6,8 @@ PLushkin https://t.me/plushkin_blog
 Трон TRC-20 только USDT, остальное не доходит - `TEZG4iSmr31wWnvBixKgUN9Aax4bbgu1s3`
 
 # Чё делает
-1. минтить НФТ за деплой контаркта
-2. покупает домен на сайте https://airdrop.scroll.name/?ref=0x521a9c98F238531d9B0b9CBD10413E1B26E1ab70
+1. main - разворачивает в сети scroll смарт-контракт
+2. step2 - взаимодействует с контрактом, т.е. вызывает его функцию
 
 # Установка и запуск: Linux/Mac
 

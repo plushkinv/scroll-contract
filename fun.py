@@ -124,7 +124,10 @@ def get_new_prices(token = False):
     if token:
         try:
             url =f'https://min-api.cryptocompare.com/data/price?fsym={token}&tsyms=USDT'
-            result = requests.get(url=url, proxies=config.proxies)
+            if config.proxy_use:
+                result = requests.get(url=url, proxies=config.proxies)
+            else:
+                result = requests.get(url=url) 
             if result.status == 200:
                 resp_json = result.json(content_type=None)
                 new_price = float(resp_json['USDT'])
@@ -167,3 +170,22 @@ def get_random_line_from_file(file_path):
         lines = file.readlines()
         random_line = random.choice(lines)
         return random_line.strip()  # Удаление символов перевода строки
+    
+
+
+def wait_gas_price_eth(max_gas_price = False):
+    if max_gas_price == False:
+        max_gas_price = config.max_gas_price
+
+    web3 = Web3(Web3.HTTPProvider(config.rpc_links['eth'], request_kwargs=config.request_kwargs))
+    while True:
+        gasPrice = web3.eth.gas_price
+        gasPrice_Gwei = Web3.from_wei(gasPrice, 'Gwei')
+        log(f"gasPrice_Gwei = {gasPrice_Gwei}")
+        if config.max_gas_price > gasPrice_Gwei:
+            return True
+        else:
+            log("Жду снижения цены за газ")
+            timeOut("teh")
+            timeOut("teh")
+            timeOut("teh")
